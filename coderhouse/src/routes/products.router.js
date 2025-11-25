@@ -3,18 +3,17 @@ const ProductManager = require('../managers/ProductManager');
 
 const router = Router();
 
-// IMPORTANTE: Ajusta la ruta si tu carpeta data está en otro lado.
-// Según la estructura que hicimos, debería estar en la raíz: './data/products.json'
+
 const manager = new ProductManager('./data/products.json');
 
-// GET /api/products
+
 router.get('/', async (req, res) => {
     try {
         const products = await manager.getProducts();
         const limit = req.query.limit;
         
         if (limit) {
-            // Si hay límite, devolvemos solo los primeros 'limit' productos
+           
             return res.send(products.slice(0, limit));
         }
         res.send(products);
@@ -23,10 +22,10 @@ router.get('/', async (req, res) => {
     }
 });
 
-// GET /api/products/:pid
+
 router.get('/:pid', async (req, res) => {
     try {
-        const pid = parseInt(req.params.pid); // Convertimos a número
+        const pid = parseInt(req.params.pid); 
         const product = await manager.getProductById(pid);
         
         if (!product) {
@@ -38,10 +37,10 @@ router.get('/:pid', async (req, res) => {
     }
 });
 
-// POST /api/products
+
 router.post('/', async (req, res) => {
     try {
-        const newProduct = req.body; // El JSON que mandas por Postman
+        const newProduct = req.body; 
         const addedProduct = await manager.addProduct(newProduct);
         
         if (!addedProduct) {
@@ -54,7 +53,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-// PUT /api/products/:pid
+
 router.put('/:pid', async (req, res) => {
     try {
         const pid = parseInt(req.params.pid);
@@ -71,7 +70,7 @@ router.put('/:pid', async (req, res) => {
     }
 });
 
-// DELETE /api/products/:pid
+
 router.delete('/:pid', async (req, res) => {
     try {
         const pid = parseInt(req.params.pid);
