@@ -5,7 +5,7 @@ class ProductManager {
         this.path = path;
     }
 
-    // Leer todos los productos del archivo
+
     async getProducts() {
         try {
             if (fs.existsSync(this.path)) {
@@ -19,23 +19,22 @@ class ProductManager {
         }
     }
 
-    // Agregar producto con validaciones e ID autoincremental
     async addProduct(product) {
         const products = await this.getProducts();
 
-        // Validar campos obligatorios
+
         if (!product.title || !product.description || !product.price || !product.code || !product.stock || !product.category) {
             console.error("Todos los campos son obligatorios");
             return null;
         }
 
-        // Validar que el código no se repita
+ 
         if (products.some(p => p.code === product.code)) {
             console.error("El código del producto ya existe");
             return null;
         }
 
-        // Autogenerar ID
+
         const id = products.length > 0 ? products[products.length - 1].id + 1 : 1;
 
         const newProduct = {
@@ -44,15 +43,15 @@ class ProductManager {
             description: product.description,
             code: product.code,
             price: product.price,
-            status: true, // Por defecto true según consigna
+            status: true, 
             stock: product.stock,
             category: product.category,
-            thumbnails: product.thumbnails || [] // Array vacío si no viene nada
+            thumbnails: product.thumbnails || [] 
         };
 
         products.push(newProduct);
 
-        // Escribir en el archivo
+
         await fs.promises.writeFile(this.path, JSON.stringify(products, null, '\t'));
         return newProduct;
     }
@@ -68,7 +67,7 @@ class ProductManager {
         const index = products.findIndex(p => p.id === id);
 
         if (index !== -1) {
-            // Actualizamos solo los campos enviados, manteniendo el ID original
+      
             const updatedProduct = { ...products[index], ...updates, id: id };
             products[index] = updatedProduct;
             await fs.promises.writeFile(this.path, JSON.stringify(products, null, '\t'));
