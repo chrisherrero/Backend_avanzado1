@@ -1,0 +1,15 @@
+[
+	{
+		"id": 1,
+		"title": "PS5",
+		"description": "Consola de videojuegos Playstation 5",
+		"code": "Playstation 5",
+		"price": 700,
+		"status": true,
+		"stock": 30,
+		"category": "Entretenimiento",
+		"thumbnails": [
+			"https://imagen.com/PS5.jpg"
+		]
+	}
+]
